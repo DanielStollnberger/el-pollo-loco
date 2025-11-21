@@ -1,11 +1,11 @@
 class World {
     ctx;
     canvas;
-    character = new Character(200, 200);
+    character = new Character(100, 200);
     enemies = [
-        new Chicken(400, 250),
-        new Chicken(300, 250),
-        new Chicken(500, 250)
+        new Chicken(Math.random() * 500 + 200, 250),
+        new Chicken(Math.random() * 500 + 200, 250),
+        new Chicken(Math.random() * 500 + 200, 250)
     ];
 
     constructor(canvas) {
