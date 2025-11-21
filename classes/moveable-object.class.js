@@ -9,7 +9,12 @@ class MoveableObject {
         this.img = img;
     }
 
+    loadImg(path) {
+        this.img = new Image();
+        this.img.src = path;
+    };
+
     moveRight() {
-        console.log('moving right');
+       this.positionX + 1;
     }
 }
