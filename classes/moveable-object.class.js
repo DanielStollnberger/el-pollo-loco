@@ -15,6 +15,10 @@ class MoveableObject {
     };
 
     moveRight() {
-       this.positionX + 1;
+      this.positionX = this.positionX + 10;
+    }
+
+    moveLeft(){
+        this.positionX = this.positionX - 10;
     }
 }
