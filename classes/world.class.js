@@ -1,15 +1,13 @@
 class World {
     ctx;
     canvas;
-    character = new Character(50, 220, '../img/2_character_pepe/2_walk/W-21.png');
+    character = new Character(50, 180, '../img/2_character_pepe/2_walk/W-21.png');
     enemies = [
         new Chicken(),
         new Chicken(),
         new Chicken()
     ];
     clouds = [
-        new Cloud(),
-        new Cloud(),
         new Cloud(),
         new Cloud()
     ];
@@ -32,7 +30,7 @@ class World {
         this.addObjectsToMap(this.background);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
-        this.ctx.drawImage(this.character.img, this.character.positionX, this.character.positionY, 200, 200);
+        this.addToMap(this.character);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -43,4 +41,8 @@ class World {
     addObjectsToMap(array) {
         array.forEach(object => { this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height) })
     };
+
+    addToMap(object) {
+        this.ctx.drawImage(object.img, object.positionX, object.positionY, 150, 250);
+    }
 }

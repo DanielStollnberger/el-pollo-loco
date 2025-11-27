@@ -2,11 +2,15 @@ class MoveableObject {
     positionX;
     positionY;
     img;
+    imageCache = {
+
+    }
 
     constructor(positionX, positionY, img) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.img = img;
+
     }
 
     loadImg(path) {
@@ -14,11 +18,23 @@ class MoveableObject {
         this.img.src = path;
     };
 
-    moveRight() {
-      this.positionX = this.positionX + 10;
+    loadImages(arr) {
+        arr.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
     }
 
-    moveLeft(){
+    moveRight() {
+        this.positionX = this.positionX + 10;
+    }
+
+    moveLeft() {
         this.positionX = this.positionX - 10;
     }
+
+    animationLeft() {
+        this.positionX = this.positionX - 0.3;
+    };
 }
