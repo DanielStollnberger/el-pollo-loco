@@ -37,4 +37,15 @@ class MoveableObject {
     animationLeft() {
         this.positionX = this.positionX - 0.3;
     };
+
+    walk(cache) {
+        setInterval(() => {
+            let path = cache[this.currentImage];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+            if (this.currentImage >= cache.length) {
+                this.currentImage = 0;
+            }
+        }, 1000);
+    }
 }

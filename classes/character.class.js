@@ -1,5 +1,5 @@
 class Character extends MoveableObject {
-    characterCache = [
+    cache = [
         '../img/2_character_pepe/2_walk/W-21.png',
         '../img/2_character_pepe/2_walk/W-22.png',
         '../img/2_character_pepe/2_walk/W-23.png',
@@ -13,17 +13,20 @@ class Character extends MoveableObject {
         super(positionX, positionY, img).loadImg(img);
         this.positionY = positionY;
 
-        this.loadImages(this.characterCache);
-        this.walk();
+        this.loadImages(this.cache);
+        this.walk(this.cache);
     }
 
-    walk() {
-        setInterval(() => {
-            let path = this.characterCache[this.currentImage];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 1000)
-    }
+    // walk() {
+    //     setInterval(() => {
+    //         let path = this.characterCache[this.currentImage];
+    //         this.img = this.imageCache[path];
+    //         this.currentImage++;
+    //         if (this.currentImage >= this.characterCache.length) {
+    //             this.currentImage = 0;
+    //         }
+    //     }, 1000);
+    // }
 
     jump() {
         world.character.positionY = this.positionY - 10;
