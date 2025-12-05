@@ -14,10 +14,10 @@ class Character extends MoveableObject {
         this.positionY = positionY;
 
         this.loadImages(this.cache);
-        this.walk(this.cache);
+        this.walk();
     }
 
-    // walk() {
+    // walk(cache) {
     //     setInterval(() => {
     //         let path = this.characterCache[this.currentImage];
     //         this.img = this.imageCache[path];

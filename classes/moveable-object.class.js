@@ -38,14 +38,12 @@ class MoveableObject {
         this.positionX = this.positionX - 0.3;
     };
 
-    walk(cache) {
+    walk() {
         setInterval(() => {
-            let path = cache[this.currentImage];
+            let i = this.currentImage % this.cache.length
+            let path = this.cache[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-            if (this.currentImage >= cache.length) {
-                this.currentImage = 0;
-            }
         }, 1000);
     }
 }
