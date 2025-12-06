@@ -28,14 +28,6 @@ class MoveableObject {
         });
     }
 
-    moveRight() {
-        this.positionX = this.positionX + 10;
-    }
-
-    moveLeft() {
-        this.positionX = this.positionX - 10;
-    }
-
     animateLeft(v) {
         setInterval(() => this.positionX = this.positionX - 0.3, v);
         ;
@@ -43,8 +35,8 @@ class MoveableObject {
 
     walk() {
         setInterval(() => {
-            let i = this.currentImage % this.cache.length
-            let path = this.cache[i];
+            let i = this.currentImage % this.cache.walking.length
+            let path = this.cache.walking[i];
             this.img = this.imageCache[path];
             this.currentImage++;
         }, 100);
