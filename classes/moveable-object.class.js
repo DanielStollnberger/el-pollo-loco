@@ -2,6 +2,8 @@ class MoveableObject {
     positionX;
     positionY;
     img;
+    currentImage = 0;
+
     imageCache = {
 
     }
@@ -34,8 +36,9 @@ class MoveableObject {
         this.positionX = this.positionX - 10;
     }
 
-    animationLeft() {
-        this.positionX = this.positionX - 0.3;
+    animateLeft(v) {
+        setInterval(() => this.positionX = this.positionX - 0.3, v);
+        ;
     };
 
     walk() {
@@ -44,6 +47,6 @@ class MoveableObject {
             let path = this.cache[i];
             this.img = this.imageCache[path];
             this.currentImage++;
-        }, 1000);
+        }, 100);
     }
 }
