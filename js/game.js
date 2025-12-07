@@ -1,10 +1,9 @@
 let canvas;
 let world;
-let keyboard;
+let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas);
-    keyboard = new Keyboard();
+    world = new World(canvas,keyboard);
 }
 
