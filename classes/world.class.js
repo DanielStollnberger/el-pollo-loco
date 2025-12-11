@@ -19,7 +19,7 @@ class World {
         new BackgroundObject('../img/5_background/layers/2_second_layer/1.png'),
         new BackgroundObject('../img/5_background/layers/1_first_layer/1.png')
     ]
-    
+
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -46,6 +46,16 @@ class World {
     };
 
     addToMap(object) {
+        if (object.flipImg) {
+            this.ctx.save();
+            this.ctx.translate(object.positionX + object.width / -2, object.positionY);
+            this.ctx.scale(-1, 1);
+            object.positionX *= -1;
+        }
         this.ctx.drawImage(object.img, object.positionX, object.positionY, 150, 250);
+        if (object.flipImg) {
+            object.positionX *= -1;
+            this.ctx.restore();
+        }
     }
 }

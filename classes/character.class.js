@@ -1,4 +1,5 @@
 class Character extends MoveableObject {
+    speed = 10;
     cache = {
         walking: [
             '../img/2_character_pepe/2_walk/W-21.png',

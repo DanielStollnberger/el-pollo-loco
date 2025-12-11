@@ -2,6 +2,8 @@ class MoveableObject {
     positionX;
     positionY;
     img;
+    flipImg = false;
+
     currentImage = 0;
 
     imageCache = {
@@ -35,19 +37,29 @@ class MoveableObject {
     walk() {
         setInterval(() => {
             if (world.keyboard.right) {
-                this.positionX += 10;
+                this.positionX += this.speed;
+                this.flipImg = false;
+            } else if (world.keyboard.left) {
+                this.positionX -= this.speed;
+                this.flipImg = true;
+            } else if (world.keyboard.space == true) {
+                this.positionY -= this.speed;
+            }
+        }, 1000 / 60);
+
+
+        setInterval(() => {
+            if (world.keyboard.right) {
                 let i = this.currentImage % this.cache.walking.length
                 let path = this.cache.walking[i];
                 this.img = this.imageCache[path];
                 this.currentImage++;
             } else if (world.keyboard.left) {
-                this.positionX -= 10;
                 let i = this.currentImage % this.cache.walking.length
                 let path = this.cache.walking[i];
                 this.img = this.imageCache[path];
                 this.currentImage++;
             } else if (world.keyboard.space == true) {
-                this.positionY -= 20;
                 setInterval(() => {
                     let i = this.currentImage % this.cache.jumping.length;
                     let path = this.cache.jumping[i];
@@ -55,6 +67,6 @@ class MoveableObject {
                     this.currentImage++;
                 }, 100);
             }
-        }, 100);
+        }, 50);
     }
 }
