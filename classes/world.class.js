@@ -2,8 +2,9 @@ class World {
     ctx;
     canvas;
     keyboard;
+    cameraX = 0;
 
-    character = new Character(50, 180, '../img/2_character_pepe/1_idle/idle/I-1.png');
+    character = new Character(0, 180, '../img/2_character_pepe/1_idle/idle/I-1.png');
     enemies = [
         new Chicken(),
         new Chicken(),
@@ -17,7 +18,11 @@ class World {
         new BackgroundObject('../img/5_background/layers/air.png'),
         new BackgroundObject('../img/5_background/layers/3_third_layer/1.png'),
         new BackgroundObject('../img/5_background/layers/2_second_layer/1.png'),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png')
+        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png'),
+        new BackgroundObjectTwo('../img/5_background/layers/air.png'),
+        new BackgroundObjectTwo('../img/5_background/layers/3_third_layer/2.png'),
+        new BackgroundObjectTwo('../img/5_background/layers/2_second_layer/2.png'),
+        new BackgroundObjectTwo('../img/5_background/layers/1_first_layer/2.png'),
     ]
 
     constructor(canvas, keyboard) {
@@ -30,10 +35,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.ctx.translate(this.cameraX, 0);
+
         this.addObjectsToMap(this.background);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
         this.addToMap(this.character);
+
+        this.ctx.translate(-this.cameraX, 0);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -48,11 +57,11 @@ class World {
     addToMap(object) {
         if (object.flipImg) {
             this.ctx.save();
-            this.ctx.translate(object.positionX + object.width / -2, object.positionY);
+            this.ctx.translate(object.width, 0);
             this.ctx.scale(-1, 1);
             object.positionX *= -1;
         }
-        this.ctx.drawImage(object.img, object.positionX, object.positionY, 150, 250);
+        this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height);
         if (object.flipImg) {
             object.positionX *= -1;
             this.ctx.restore();

@@ -1,4 +1,6 @@
 class Character extends MoveableObject {
+    width = 150;
+    height = 250;
     speed = 10;
     cache = {
         walking: [

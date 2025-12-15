@@ -14,13 +14,18 @@ class MoveableObject {
         this.positionX = positionX;
         this.positionY = positionY;
         this.img = img;
-
     }
 
     loadImg(path) {
         this.img = new Image();
         this.img.src = path;
     };
+
+    loadBackground(path) {
+            this.img = new Image();
+            this.img.src = path;
+            this.positionX += 720;
+    }
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -45,6 +50,7 @@ class MoveableObject {
             } else if (world.keyboard.space == true) {
                 this.positionY -= this.speed;
             }
+            world.cameraX = -this.positionX;
         }, 1000 / 60);
 
 

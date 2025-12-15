@@ -25,6 +25,7 @@ class Keyboard {
                     break;
                 case "ArrowRight":
                     this.right = true;
+                    console.log(world.character.positionX);
                     break;
                 case "ArrowLeft":
                     this.left = true;
