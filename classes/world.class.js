@@ -14,30 +14,35 @@ class World {
         new Cloud(),
         new Cloud()
     ];
-    background = [
-        new BackgroundObject('../img/5_background/layers/air.png'),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png'),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png'),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png'),
-        new BackgroundObjectTwo('../img/5_background/layers/air.png'),
-        new BackgroundObjectTwo('../img/5_background/layers/3_third_layer/2.png'),
-        new BackgroundObjectTwo('../img/5_background/layers/2_second_layer/2.png'),
-        new BackgroundObjectTwo('../img/5_background/layers/1_first_layer/2.png'),
-    ]
+    background = {
+        one: [
+            new BackgroundObject('../img/5_background/layers/air.png', 0),
+            new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 0),
+            new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 0),
+            new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0)
+        ],
+        two:[
+            new BackgroundObject('../img/5_background/layers/air.png',720),
+            new BackgroundObject('../img/5_background/layers/3_third_layer/2.png',720),
+            new BackgroundObject('../img/5_background/layers/2_second_layer/2.png',720),
+            new BackgroundObject('../img/5_background/layers/1_first_layer/2.png',720),
+        ]
+    };
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
         this.draw();
-    }
+    };
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.cameraX, 0);
 
-        this.addObjectsToMap(this.background);
+        this.addObjectsToMap(this.background.one);
+        this.addObjectsToMap(this.background.two);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
         this.addToMap(this.character);
@@ -50,7 +55,7 @@ class World {
         });
     };
 
-    addObjectsToMap(array) {
+    addObjectsToMap(array, pos) {
         array.forEach(object => { this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height) })
     };
 

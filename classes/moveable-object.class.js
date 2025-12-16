@@ -21,12 +21,6 @@ class MoveableObject {
         this.img.src = path;
     };
 
-    loadBackground(path) {
-            this.img = new Image();
-            this.img.src = path;
-            this.positionX += 720;
-    }
-
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
