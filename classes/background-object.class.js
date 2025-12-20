@@ -3,10 +3,11 @@ class BackgroundObject extends MoveableObject {
     positionX = 0;
     height = 480;
     width = 720;
+    backPos;
 
     constructor(img, positionX) {
-        super(img).loadImg(img);
+        super().loadImg(img);
 
-        this.positionX = positionX;
+        this.positionX = positionX -100;
     }
 }

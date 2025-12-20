@@ -35,16 +35,16 @@ class MoveableObject {
 
     walk() {
         setInterval(() => {
-            if (world.keyboard.right) {
+            if (world.keyboard.right && world.character.positionX < world.level.endX) {
                 this.positionX += this.speed;
                 this.flipImg = false;
-            } else if (world.keyboard.left) {
+            } else if (world.keyboard.left && world.character.positionX > 0) {
                 this.positionX -= this.speed;
                 this.flipImg = true;
             } else if (world.keyboard.space == true) {
                 this.positionY -= this.speed;
             }
-            world.cameraX = -this.positionX;
+            world.cameraX = -this.positionX +100;
         }, 1000 / 60);
 
 

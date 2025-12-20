@@ -3,31 +3,9 @@ class World {
     canvas;
     keyboard;
     cameraX = 0;
+    level = level1;
 
     character = new Character(0, 180, '../img/2_character_pepe/1_idle/idle/I-1.png');
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
-    clouds = [
-        new Cloud(),
-        new Cloud()
-    ];
-    background = {
-        one: [
-            new BackgroundObject('../img/5_background/layers/air.png', 0),
-            new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 0),
-            new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 0),
-            new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0)
-        ],
-        two:[
-            new BackgroundObject('../img/5_background/layers/air.png',720),
-            new BackgroundObject('../img/5_background/layers/3_third_layer/2.png',720),
-            new BackgroundObject('../img/5_background/layers/2_second_layer/2.png',720),
-            new BackgroundObject('../img/5_background/layers/1_first_layer/2.png',720),
-        ]
-    };
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -38,13 +16,11 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.cameraX, 0);
 
-        this.addObjectsToMap(this.background.one);
-        this.addObjectsToMap(this.background.two);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.background);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.cameraX, 0);
@@ -55,7 +31,7 @@ class World {
         });
     };
 
-    addObjectsToMap(array, pos) {
+    addObjectsToMap(array) {
         array.forEach(object => { this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height) })
     };
 
