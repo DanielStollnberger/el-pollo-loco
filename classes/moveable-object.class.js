@@ -49,16 +49,8 @@ class MoveableObject {
 
 
         setInterval(() => {
-            if (world.keyboard.right) {
-                let i = this.currentImage % this.cache.walking.length
-                let path = this.cache.walking[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            } else if (world.keyboard.left) {
-                let i = this.currentImage % this.cache.walking.length
-                let path = this.cache.walking[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+            if (world.keyboard.right || world.keyboard.left) {
+                this.walkAnimation();
             } else if (world.keyboard.space == true) {
                 setInterval(() => {
                     let i = this.currentImage % this.cache.jumping.length;
@@ -68,5 +60,13 @@ class MoveableObject {
                 }, 100);
             }
         }, 50);
+
+    }
+
+    walkAnimation(){
+        let i = this.currentImage % this.cache.walking.length
+            let path = this.cache.walking[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
     }
 }

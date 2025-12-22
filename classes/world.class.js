@@ -6,6 +6,7 @@ class World {
     level = level1;
 
     character = new Character(0, 180, '../img/2_character_pepe/1_idle/idle/I-1.png');
+    boss = new Boss();
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -22,6 +23,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
+        this.addToMap(this.boss);
 
         this.ctx.translate(-this.cameraX, 0);
 
