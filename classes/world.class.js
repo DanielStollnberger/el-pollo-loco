@@ -5,7 +5,7 @@ class World {
     cameraX = 0;
     level = level1;
 
-    character = new Character(0, 180, '../img/2_character_pepe/1_idle/idle/I-1.png');
+    character = new Character(0, '../img/2_character_pepe/1_idle/idle/I-1.png');
     boss = new Boss();
 
     constructor(canvas, keyboard) {
@@ -32,6 +32,9 @@ class World {
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
+
+        // console.log(world.character.positionY);
+        
         });
     };
 

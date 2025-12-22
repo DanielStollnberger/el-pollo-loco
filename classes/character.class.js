@@ -1,7 +1,11 @@
 class Character extends MoveableObject {
+    positionY = 80;
     width = 150;
     height = 250;
     speed = 10;
+    speedY = 0;
+    acceleration = 2.5;
+
     cache = {
         walking: [
             '../img/2_character_pepe/2_walk/W-21.png',
@@ -23,12 +27,26 @@ class Character extends MoveableObject {
         ]
     };
 
-    constructor(positionX, positionY, img) {
-        super(positionX, positionY, img).loadImg(img);
-        this.positionY = positionY;
+    constructor(positionX, img) {
+        super(positionX, img).loadImg(img);
 
+        this.gravitation();
         this.moveRight();
         this.moveLeft();
+    }
+
+    gravitation() {
+        setInterval(() => {
+            if (this.aboveGround()) {
+                this.positionY -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25)
+
+    }
+
+    aboveGround() {
+        return this.positionY < 180
     }
 
     jump() {
