@@ -2,7 +2,7 @@ class MoveableObject {
     positionX;
     positionY;
     img;
-    flipImg = false;
+    flippedImg = false;
 
     currentImage = 0;
 
@@ -39,12 +39,23 @@ class MoveableObject {
     jump() {
         this.speedY = 30;
     }
+
     moveLeft() {
         this.positionX -= this.speed;
-        this.flipImg = true;
     }
+
     moveRight() {
         this.positionX += this.speed;
-        this.flipImg = false;
     }
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.rect(this.positionX, this.positionY, this.width, this.height);
+        ctx.stroke();
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.positionX, this.positionY, this.width, this.height);
+    }
+
 }

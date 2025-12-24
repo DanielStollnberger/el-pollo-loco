@@ -54,10 +54,12 @@ class Character extends MoveableObject {
     move() {
         setInterval(() => {
             if (world.keyboard.right && world.character.positionX < world.level.endX) {
-               this.moveRight();
+                this.flippedImg = false;
+                this.moveRight();
             }
 
             if (world.keyboard.left && world.character.positionX > 0) {
+                this.flippedImg = true;
                 this.moveLeft();
             }
 

@@ -23,7 +23,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
-        
+
         this.addToMap(this.character);
         this.addToMap(this.boss);
 
@@ -36,20 +36,33 @@ class World {
     };
 
     addObjectsToMap(array) {
-        array.forEach(object => { this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height) })
+        array.forEach(object => {
+            this.addToMap(object);
+        })
     };
 
     addToMap(object) {
-        if (object.flipImg) {
-            this.ctx.save();
-            this.ctx.translate(object.width, 0);
-            this.ctx.scale(-1, 1);
-            object.positionX *= -1;
+        if (object.flippedImg) {
+            this.flipImg(object);
         }
-        this.ctx.drawImage(object.img, object.positionX, object.positionY, object.width, object.height);
-        if (object.flipImg) {
-            object.positionX *= -1;
-            this.ctx.restore();
+
+        object.draw(this.ctx);
+        object.drawFrame(this.ctx);
+
+        if (object.flippedImg) {
+            this.flipImgBack(object);
         }
+    }
+
+    flipImg(object) {
+        this.ctx.save();
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
+        object.positionX *= -1;
+    }
+
+    flipImgBack(object) {
+        object.positionX *= -1;
+        this.ctx.restore();
     }
 }
