@@ -32,9 +32,6 @@ class World {
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
-
-        // console.log(world.character.positionY);
-        
         });
     };
 

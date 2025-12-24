@@ -1,5 +1,5 @@
 class Character extends MoveableObject {
-    positionY = 80;
+    positionY = 180;
     width = 150;
     height = 250;
     speed = 10;
@@ -30,36 +30,54 @@ class Character extends MoveableObject {
     constructor(positionX, img) {
         super(positionX, img).loadImg(img);
 
+        this.loadImages(this.cache.jumping);
+        this.loadImages(this.cache.walking);
         this.gravitation();
-        this.moveRight();
-        this.moveLeft();
+        this.move();
     }
 
     gravitation() {
         setInterval(() => {
-            if (this.aboveGround()) {
+            if (this.aboveGround() || this.speedY > 0) {
                 this.positionY -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25)
 
+        setInterval(() => {
+            if (this.aboveGround() || world.keyboard.space) {
+                this.animation('jumping');
+            }
+        }, 120)
+    }
+
+    move() {
+        setInterval(() => {
+            if (world.keyboard.right && world.character.positionX < world.level.endX) {
+                this.positionX += this.speed;
+                this.flipImg = false;
+            }
+
+            if (world.keyboard.left && world.character.positionX > 0) {
+                this.positionX -= this.speed;
+                this.flipImg = true;
+            }
+
+            if (world.keyboard.space || world.keyboard.up) {
+                this.speedY = 20;
+            }
+            world.cameraX = -this.positionX + 100;
+        }, 1000 / 60);
+
+
+        setInterval(() => {
+            if (world.keyboard.right || world.keyboard.left) {
+                this.animation('walking');
+            }
+        }, 50);
     }
 
     aboveGround() {
         return this.positionY < 180
     }
-
-    jump() {
-        this.loadImages(this.cache.jumping);
-    };
-
-    moveRight() {
-        this.loadImages(this.cache.walking);
-        this.walk();
-    };
-
-    moveLeft() {
-        this.loadImages(this.cache.walking);
-        this.walk();
-    };
 }

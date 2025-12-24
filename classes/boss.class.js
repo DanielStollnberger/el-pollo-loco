@@ -17,17 +17,12 @@ class Boss extends MoveableObject{
     constructor(positionX, positionY, img) {
         super(positionX, positionY, img).loadImg('img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.cache.walking);
-        this.animation();
-        this.eat();
+        this.bossAnimation();
     }
     
-    eat() {
-        console.log(this.world);
-    };
-    
-    animation() {
+    bossAnimation() {
         setInterval(() => {
-            this.walkAnimation();
+            this.animation('walking');
         }, 200);
     }
 }

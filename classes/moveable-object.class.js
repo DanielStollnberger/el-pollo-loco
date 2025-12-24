@@ -33,40 +33,10 @@ class MoveableObject {
         setInterval(() => this.positionX = this.positionX - 0.3, v);
     };
 
-    walk() {
-        setInterval(() => {
-            if (world.keyboard.right && world.character.positionX < world.level.endX) {
-                this.positionX += this.speed;
-                this.flipImg = false;
-            } else if (world.keyboard.left && world.character.positionX > 0) {
-                this.positionX -= this.speed;
-                this.flipImg = true;
-            } else if (world.keyboard.space == true) {
-                this.positionY -= this.speed;
-            }
-            world.cameraX = -this.positionX +100;
-        }, 1000 / 60);
-
-
-        setInterval(() => {
-            if (world.keyboard.right || world.keyboard.left) {
-                this.walkAnimation();
-            } else if (world.keyboard.space == true) {
-                setInterval(() => {
-                    let i = this.currentImage % this.cache.jumping.length;
-                    let path = this.cache.jumping[i];
-                    this.img = this.imageCache[path];
-                    this.currentImage++;
-                }, 100);
-            }
-        }, 50);
-
-    }
-
-    walkAnimation(){
+    animation(cacheArray) {
         let i = this.currentImage % this.cache.walking.length
-            let path = this.cache.walking[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+        let path = this.cache[cacheArray][i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 }

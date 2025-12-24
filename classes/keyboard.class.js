@@ -6,26 +6,14 @@ class Keyboard {
     up = false;
 
     constructor() {
-        window.addEventListener('keypress', (e) => {
-            // console.log(e);
-            switch (e.code) {
-                case "Space":
-                    this.space = true;
-                    break;
-                default:
-                    console.log("Unknown move");
-            }
-        })
         window.addEventListener('keydown', (e) => {
             // console.log(e);
             switch (e.code) {
                 case "Space":
                     this.space = true;
-                    world.character.jump();
                     break;
                 case "ArrowRight":
                     this.right = true;
-                    console.log(world.character.positionX);
                     break;
                 case "ArrowLeft":
                     this.left = true;
