@@ -54,17 +54,15 @@ class Character extends MoveableObject {
     move() {
         setInterval(() => {
             if (world.keyboard.right && world.character.positionX < world.level.endX) {
-                this.positionX += this.speed;
-                this.flipImg = false;
+               this.moveRight();
             }
 
             if (world.keyboard.left && world.character.positionX > 0) {
-                this.positionX -= this.speed;
-                this.flipImg = true;
+                this.moveLeft();
             }
 
-            if (world.keyboard.space || world.keyboard.up) {
-                this.speedY = 20;
+            if ((world.keyboard.space || world.keyboard.up) && !this.aboveGround()) {
+                this.jump()
             }
             world.cameraX = -this.positionX + 100;
         }, 1000 / 60);

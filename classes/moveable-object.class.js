@@ -29,14 +29,22 @@ class MoveableObject {
         });
     }
 
-    animateLeft(v) {
-        setInterval(() => this.positionX = this.positionX - 0.3, v);
-    };
-
     animation(cacheArray) {
         let i = this.currentImage % this.cache.walking.length
         let path = this.cache[cacheArray][i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    jump() {
+        this.speedY = 30;
+    }
+    moveLeft() {
+        this.positionX -= this.speed;
+        this.flipImg = true;
+    }
+    moveRight() {
+        this.positionX += this.speed;
+        this.flipImg = false;
     }
 }
