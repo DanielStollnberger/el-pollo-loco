@@ -1,6 +1,9 @@
 class MoveableObject {
     positionX;
     positionY;
+    health = 100;
+    lastHit = 0;
+
     img;
     flippedImg = false;
 
@@ -30,7 +33,7 @@ class MoveableObject {
     }
 
     animation(cacheArray) {
-        let i = this.currentImage % this.cache.walking.length
+        let i = this.currentImage % this.cache[cacheArray].length
         let path = this.cache[cacheArray][i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -49,13 +52,40 @@ class MoveableObject {
     }
 
     drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.rect(this.positionX, this.positionY, this.width, this.height);
-        ctx.stroke();
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.rect(this.positionX, this.positionY, this.width, this.height);
+            ctx.stroke();
+        }
     }
 
     draw(ctx) {
         ctx.drawImage(this.img, this.positionX, this.positionY, this.width, this.height);
     }
 
+    isColliding(object) {
+        return this.positionX + this.width > object.positionX &&
+            this.positionY + this.height > object.positionY &&
+            this.positionX < object.positionX &&
+            this.positionY < object.positionY + object.height
+    }
+
+    gotHit() {
+        this.health -= 5;
+        if (this.health < 0) {
+            this.health = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    gotHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
+    }
+
+    isDead() {
+        return this.health == 0;
+    }
 }

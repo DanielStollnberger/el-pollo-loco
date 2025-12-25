@@ -5,6 +5,7 @@ class World {
     cameraX = 0;
     level = level1;
 
+    healthBar = new HealthBar('../img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png');
     character = new Character(0, '../img/2_character_pepe/1_idle/idle/I-1.png');
     boss = new Boss();
 
@@ -13,7 +14,18 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
         this.draw();
+        this.checkCollisions();
     };
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.gotHit();
+                }
+            })
+        }, 200);
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -24,6 +36,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
 
+        this.addToMap(this.healthBar);
         this.addToMap(this.character);
         this.addToMap(this.boss);
 

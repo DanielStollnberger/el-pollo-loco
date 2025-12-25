@@ -13,7 +13,8 @@ class Character extends MoveableObject {
             '../img/2_character_pepe/2_walk/W-23.png',
             '../img/2_character_pepe/2_walk/W-24.png',
             '../img/2_character_pepe/2_walk/W-25.png',
-            '../img/2_character_pepe/2_walk/W-26.png'],
+            '../img/2_character_pepe/2_walk/W-26.png'
+        ],
         jumping: [
             'img/2_character_pepe/3_jump/J-31.png',
             'img/2_character_pepe/3_jump/J-32.png',
@@ -23,7 +24,21 @@ class Character extends MoveableObject {
             'img/2_character_pepe/3_jump/J-36.png',
             'img/2_character_pepe/3_jump/J-37.png',
             'img/2_character_pepe/3_jump/J-38.png',
-            'img/2_character_pepe/3_jump/J-39.png',
+            'img/2_character_pepe/3_jump/J-39.png'
+        ],
+        die: [
+            'img/2_character_pepe/5_dead/D-51.png',
+            'img/2_character_pepe/5_dead/D-52.png',
+            'img/2_character_pepe/5_dead/D-53.png',
+            'img/2_character_pepe/5_dead/D-54.png',
+            'img/2_character_pepe/5_dead/D-55.png',
+            'img/2_character_pepe/5_dead/D-56.png',
+            'img/2_character_pepe/5_dead/D-57.png'
+        ],
+        hurt: [
+            'img/2_character_pepe/4_hurt/H-41.png',
+            'img/2_character_pepe/4_hurt/H-42.png',
+            'img/2_character_pepe/4_hurt/H-43.png'
         ]
     };
 
@@ -32,6 +47,8 @@ class Character extends MoveableObject {
 
         this.loadImages(this.cache.jumping);
         this.loadImages(this.cache.walking);
+        this.loadImages(this.cache.die);
+        this.loadImages(this.cache.hurt);
         this.gravitation();
         this.move();
     }
@@ -43,12 +60,6 @@ class Character extends MoveableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25)
-
-        setInterval(() => {
-            if (this.aboveGround() || world.keyboard.space) {
-                this.animation('jumping');
-            }
-        }, 120)
     }
 
     move() {
@@ -73,8 +84,15 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (world.keyboard.right || world.keyboard.left) {
                 this.animation('walking');
+            } else if (this.aboveGround() || world.keyboard.space) {
+                this.animation('jumping');
+            } else if (this.isDead()) {
+                this.animation('die');
+                console.log('die');
+            } else if (this.gotHurt()) {
+                this.animation('hurt');
             }
-        }, 50);
+        }, 100);
     }
 
     aboveGround() {
