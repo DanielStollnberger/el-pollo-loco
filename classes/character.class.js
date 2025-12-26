@@ -98,4 +98,5 @@ class Character extends MoveableObject {
     aboveGround() {
         return this.positionY < 180
     }
+
 }

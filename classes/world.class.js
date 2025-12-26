@@ -41,9 +41,12 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
 
+        this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusbars.healthBar);
         this.addToMap(this.statusbars.coinBar);
         this.addToMap(this.statusbars.bottleBar);
+        this.ctx.translate(this.cameraX, 0);
+
         this.addToMap(this.character);
         this.addToMap(this.boss);
 

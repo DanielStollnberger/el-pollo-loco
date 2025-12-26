@@ -1,5 +1,5 @@
 class CoinBar extends DrawableObject {
-    positionX = -90;
+    positionX = 10;
     positionY = 45;
     width = 250;
     height = 50;

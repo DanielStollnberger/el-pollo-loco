@@ -1,5 +1,5 @@
 class BottleBar extends DrawableObject {
-    positionX = -90;
+    positionX = 10;
     positionY = 90;
     width = 250;
     height = 50;
