@@ -5,6 +5,11 @@ class World {
     cameraX = 0;
     level = level1;
 
+    statusbars = {
+       healthBar : new HealthBar(),
+       coinBar : new CoinBar(),
+       bottleBar : new BottleBar()
+    };
     healthBar = new HealthBar('../img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png');
     character = new Character(0, '../img/2_character_pepe/1_idle/idle/I-1.png');
     boss = new Boss();
@@ -36,7 +41,9 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
 
-        this.addToMap(this.healthBar);
+        this.addToMap(this.statusbars.healthBar);
+        this.addToMap(this.statusbars.coinBar);
+        this.addToMap(this.statusbars.bottleBar);
         this.addToMap(this.character);
         this.addToMap(this.boss);
 

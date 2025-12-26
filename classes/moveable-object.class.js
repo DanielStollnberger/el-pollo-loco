@@ -1,35 +1,12 @@
-class MoveableObject {
-    positionX;
-    positionY;
-    health = 100;
+class MoveableObject extends DrawableObject {
+    flippedImg = false;
     lastHit = 0;
 
-    img;
-    flippedImg = false;
-
-    currentImage = 0;
-
-    imageCache = {
-
-    }
-
     constructor(positionX, positionY, img) {
+        super(positionX, positionY, img);
         this.positionX = positionX;
         this.positionY = positionY;
         this.img = img;
-    }
-
-    loadImg(path) {
-        this.img = new Image();
-        this.img.src = path;
-    };
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
     }
 
     animation(cacheArray) {
@@ -51,18 +28,6 @@ class MoveableObject {
         this.positionX += this.speed;
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.rect(this.positionX, this.positionY, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.positionX, this.positionY, this.width, this.height);
-    }
-
     isColliding(object) {
         return this.positionX + this.width > object.positionX &&
             this.positionY + this.height > object.positionY &&
@@ -72,6 +37,8 @@ class MoveableObject {
 
     gotHit() {
         this.health -= 5;
+        world.statusbars.healthBar.setPercentage(this.health);
+        
         if (this.health < 0) {
             this.health = 0;
         } else {

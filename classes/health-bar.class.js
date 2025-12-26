@@ -1,10 +1,21 @@
-class HealthBar extends MoveableObject {
-    positionX = -70;
-    positionY = 20;
+class HealthBar extends DrawableObject {
+    positionX = -90;
+    positionY = 0;
     width = 250;
     height = 50;
 
-    constructor(img) {
-        super().loadImg(img);
+    cache = [
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+    ];
+
+    constructor() {
+        super();
+        this.loadImages(this.cache);
+        this.setPercentage(100);
     }
 }
