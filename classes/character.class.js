@@ -3,8 +3,6 @@ class Character extends MoveableObject {
     width = 150;
     height = 250;
     speed = 10;
-    speedY = 0;
-    acceleration = 2.5;
 
     cache = {
         walking: [
@@ -53,15 +51,6 @@ class Character extends MoveableObject {
         this.move();
     }
 
-    gravitation() {
-        setInterval(() => {
-            if (this.aboveGround() || this.speedY > 0) {
-                this.positionY -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-        }, 1000 / 25)
-    }
-
     move() {
         setInterval(() => {
             if (world.keyboard.right && world.character.positionX < world.level.endX) {
@@ -82,9 +71,9 @@ class Character extends MoveableObject {
 
 
         setInterval(() => {
-            if (world.keyboard.right || world.keyboard.left) {
+            if ((world.keyboard.right || world.keyboard.left) && !this.aboveGround()) {
                 this.animation('walking');
-            } else if (this.aboveGround() || world.keyboard.space) {
+            } else if (this.aboveGround()) {
                 this.animation('jumping');
             } else if (this.isDead()) {
                 this.animation('die');
@@ -92,11 +81,12 @@ class Character extends MoveableObject {
             } else if (this.gotHurt()) {
                 this.animation('hurt');
             }
+            if (world.keyboard.d) {
+                console.log('d');
+                world.bottles.push(
+                    new Bottle()
+                );
+            }
         }, 100);
     }
-
-    aboveGround() {
-        return this.positionY < 180
-    }
-
 }

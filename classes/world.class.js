@@ -10,7 +10,7 @@ class World {
        coinBar : new CoinBar(),
        bottleBar : new BottleBar()
     };
-    healthBar = new HealthBar('../img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png');
+    bottles = [];
     character = new Character(0, '../img/2_character_pepe/1_idle/idle/I-1.png');
     boss = new Boss();
 
@@ -45,6 +45,7 @@ class World {
         this.addToMap(this.statusbars.healthBar);
         this.addToMap(this.statusbars.coinBar);
         this.addToMap(this.statusbars.bottleBar);
+        this.addObjectsToMap(this.bottles)
         this.ctx.translate(this.cameraX, 0);
 
         this.addToMap(this.character);

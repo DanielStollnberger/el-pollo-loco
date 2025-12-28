@@ -4,6 +4,7 @@ class Keyboard {
     right = false;
     down = false;
     up = false;
+    d = false;
 
     constructor() {
         window.addEventListener('keydown', (e) => {
@@ -24,6 +25,8 @@ class Keyboard {
                 case "ArrowDown":
                     this.down = true;
                     break;
+                case "KeyD":
+                    this.d = true;
                 default:
                     console.log("Unknown move");
             }
@@ -46,6 +49,8 @@ class Keyboard {
                 case "ArrowDown":
                     this.down = false;
                     break;
+                case "KeyD":
+                    this.d = false;
                 default:
                     console.log("Unknown move");
             }

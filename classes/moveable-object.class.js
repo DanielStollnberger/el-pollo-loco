@@ -1,12 +1,30 @@
 class MoveableObject extends DrawableObject {
     flippedImg = false;
     lastHit = 0;
+    speedY = 0;
+    acceleration = 2.5;
 
     constructor(positionX, positionY, img) {
         super(positionX, positionY, img);
         this.positionX = positionX;
         this.positionY = positionY;
         this.img = img;
+    }
+
+    gravitation() {
+        setInterval(() => {
+            if (this instanceof ThrowableObject) {
+                this.positionY -= this.speedY;
+                this.speedY -= this.acceleration;
+            } else if (this.aboveGround() || this.speedY > 0) {
+                this.positionY -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25)
+    }
+
+    aboveGround() {
+        return this.positionY < 180
     }
 
     animation(cacheArray) {
