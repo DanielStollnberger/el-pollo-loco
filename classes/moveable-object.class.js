@@ -56,12 +56,17 @@ class MoveableObject extends DrawableObject {
     gotHit() {
         this.health -= 5;
         world.statusbars.healthBar.setPercentage(this.health);
-        
+
         if (this.health < 0) {
             this.health = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
+    }
+
+    throwedBottle() {
+            world.statusbars.bottleBar.bottles -= 20;
+            world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
     }
 
     gotHurt() {

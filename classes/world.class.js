@@ -19,17 +19,26 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
         this.draw();
-        this.checkCollisions();
+        this.checkWorld();
     };
 
+checkWorld(){
+    setInterval(() => {
+        this.checkCollisions();
+        // this.checkBottles();
+    }, 200);
+}
+
     checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.gotHit();
-                }
-            })
-        }, 200);
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.gotHit();
+            }
+        });
+    }
+
+    checkBottles(){
+        
     }
 
     draw() {
@@ -40,12 +49,12 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.bottles)
 
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusbars.healthBar);
         this.addToMap(this.statusbars.coinBar);
         this.addToMap(this.statusbars.bottleBar);
-        this.addObjectsToMap(this.bottles)
         this.ctx.translate(this.cameraX, 0);
 
         this.addToMap(this.character);

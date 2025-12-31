@@ -1,5 +1,5 @@
 class Bottle extends ThrowableObject {
-    positionX = 100;
+    positionX;
     positionY = 280;
     width = 70;
     height = 70;
@@ -14,15 +14,20 @@ class Bottle extends ThrowableObject {
         ]
     };
 
-    constructor() {
-        super().loadImg('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+    constructor(positionX) {
+        super(positionX).loadImg('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+        this.loadImages(this.cache.throwing);
+        this.positionX = positionX;
         this.throw();
     }
 
-    throw(){
+    throw() {
         this.speedY = 30;
         setInterval(() => {
             this.positionX += 8;
-        }, 1000/60);
+        }, 1000 / 60);
+        setInterval(() => {
+            this.animation('throwing');
+        }, 50)
     }
 }
