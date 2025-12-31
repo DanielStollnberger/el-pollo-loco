@@ -34,11 +34,9 @@ class Bottle extends ThrowableObject {
 
     throw() {
         this.speedY = 30;
-        console.log(this);
-
         setInterval(() => {
             if (this.aboveGround() && this.broke == false) {
-                this.positionX += 8;
+                this.positionX += 4;
             } else {
                 setInterval(() => {
                     this.animation('break');
@@ -50,6 +48,7 @@ class Bottle extends ThrowableObject {
             this.animation('throwing');
         }, 50)
     }
+
     hitted() {
         return this.broke = true;
     }

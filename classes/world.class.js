@@ -34,6 +34,7 @@ class World {
         this.characterCollectingCoin();
         this.characterCollectingBottle();
         this.bottleHitBoss();
+        this.bottleHitChicken();
     }
 
     collisionCharacterWithEnemie() {
@@ -76,6 +77,30 @@ class World {
             }
         });
     }
+
+    bottleHitChicken() {
+        this.bottles.forEach((bottle, index) => {
+            let hit = false;
+            for (let i = 0; i < this.level.enemies.length; i++) {
+                if (this.level.enemies[i].isColliding(bottle)) {
+                    hit = true;
+                    this.level.enemies[i].die();
+                    break;
+                }
+            }
+
+            if (hit) {
+                this.bottles[index].hitted();
+                this.bottles[index].animation('break');
+
+                setTimeout(() => {
+                    this.bottles.splice(index, 1);
+                }, 300);
+            }
+        });
+    }
+
+
 
     checkBottles() {
         if (this.keyboard.d && this.statusbars.bottleBar.bottles > 0) {
