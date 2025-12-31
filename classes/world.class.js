@@ -40,6 +40,11 @@ class World {
                 this.character.collectCoin(index);
             }
         });
+        this.level.collectableBottles.forEach((collectableBottle, index) => {
+            if (this.character.isColliding(collectableBottle)) {
+                this.character.collectBottle(index);
+            }
+        });
     }
 
     checkBottles() {
@@ -71,7 +76,8 @@ class World {
         this.addObjectsToMap(this.level.background);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.bottles)
+        this.addObjectsToMap(this.bottles);
+        this.addObjectsToMap(this.level.collectableBottles);
     }
 
     setStatusBars() {

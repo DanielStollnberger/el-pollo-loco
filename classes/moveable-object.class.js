@@ -70,6 +70,15 @@ class MoveableObject extends DrawableObject {
         world.statusbars.coinBar.setPercentage(world.statusbars.coinBar.coins);
     }
 
+    collectBottle(i) {
+        world.level.collectableBottles.splice(i, 1);
+        if (world.statusbars.bottleBar.bottles < 100) {
+            world.statusbars.bottleBar.bottles += 20;
+            
+        }
+        world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
+    }
+
     throwedBottle() {
         world.statusbars.bottleBar.bottles -= 20;
         world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
