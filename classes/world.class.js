@@ -6,9 +6,9 @@ class World {
     level = level1;
 
     statusbars = {
-       healthBar : new HealthBar(),
-       coinBar : new CoinBar(),
-       bottleBar : new BottleBar()
+        healthBar: new HealthBar(),
+        coinBar: new CoinBar(),
+        bottleBar: new BottleBar()
     };
     bottles = [];
     character = new Character(0, '../img/2_character_pepe/1_idle/idle/I-1.png');
@@ -22,12 +22,12 @@ class World {
         this.checkWorld();
     };
 
-checkWorld(){
-    setInterval(() => {
-        this.checkCollisions();
-        // this.checkBottles();
-    }, 200);
-}
+    checkWorld() {
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkBottles();
+        }, 200);
+    }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -37,8 +37,13 @@ checkWorld(){
         });
     }
 
-    checkBottles(){
-        
+    checkBottles() {
+        if (this.keyboard.d && this.statusbars.bottleBar.bottles > 0) {
+            this.bottles.push(
+                new Bottle(this.character.positionX)
+            );
+            this.character.throwedBottle();
+        }
     }
 
     draw() {
@@ -52,9 +57,7 @@ checkWorld(){
         this.addObjectsToMap(this.bottles)
 
         this.ctx.translate(-this.cameraX, 0);
-        this.addToMap(this.statusbars.healthBar);
-        this.addToMap(this.statusbars.coinBar);
-        this.addToMap(this.statusbars.bottleBar);
+        this.setStatusBars();
         this.ctx.translate(this.cameraX, 0);
 
         this.addToMap(this.character);
@@ -67,6 +70,12 @@ checkWorld(){
             self.draw();
         });
     };
+
+    setStatusBars() {
+        this.addToMap(this.statusbars.healthBar);
+        this.addToMap(this.statusbars.coinBar);
+        this.addToMap(this.statusbars.bottleBar);
+    }
 
     addObjectsToMap(array) {
         array.forEach(object => {

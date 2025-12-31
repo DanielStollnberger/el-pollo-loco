@@ -8,7 +8,6 @@ class Keyboard {
 
     constructor() {
         window.addEventListener('keydown', (e) => {
-            // console.log(e);
             switch (e.code) {
                 case "Space":
                     this.space = true;
@@ -28,11 +27,9 @@ class Keyboard {
                 case "KeyD":
                     this.d = true;
                 default:
-                    console.log("Unknown move");
             }
         })
         window.addEventListener('keyup', (e) => {
-            // console.log(e);
             switch (e.code) {
                 case "Space":
                     this.space = false;
@@ -52,7 +49,6 @@ class Keyboard {
                 case "KeyD":
                     this.d = false;
                 default:
-                    console.log("Unknown move");
             }
         })
     }

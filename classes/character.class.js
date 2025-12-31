@@ -81,12 +81,6 @@ class Character extends MoveableObject {
             } else if (this.gotHurt()) {
                 this.animation('hurt');
             }
-            if (world.keyboard.d && world.statusbars.bottleBar.bottles > 0) {
-                world.bottles.push(
-                    new Bottle(this.positionX)
-                );
-                this.throwedBottle();
-            }
         }, 100);
     }
 }
