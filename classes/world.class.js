@@ -35,6 +35,11 @@ class World {
                 this.character.gotHit();
             }
         });
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoin(index);
+            }
+        });
     }
 
     checkBottles() {
@@ -49,20 +54,11 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
-
-        this.addObjectsToMap(this.level.background);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.bottles)
-
+        this.setObjectsAndBackground();
         this.ctx.translate(-this.cameraX, 0);
         this.setStatusBars();
         this.ctx.translate(this.cameraX, 0);
-
-        this.addToMap(this.character);
-        this.addToMap(this.boss);
-
+        this.setEnemiesAndCharacter();
         this.ctx.translate(-this.cameraX, 0);
 
         let self = this;
@@ -71,10 +67,23 @@ class World {
         });
     };
 
+    setObjectsAndBackground() {
+        this.addObjectsToMap(this.level.background);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.bottles)
+    }
+
     setStatusBars() {
         this.addToMap(this.statusbars.healthBar);
         this.addToMap(this.statusbars.coinBar);
         this.addToMap(this.statusbars.bottleBar);
+    }
+
+    setEnemiesAndCharacter() {
+        this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.character);
+        this.addToMap(this.boss);
     }
 
     addObjectsToMap(array) {

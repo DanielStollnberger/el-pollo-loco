@@ -5,6 +5,7 @@ class DrawableObject {
     currentImage = 0;
     health = 100;
     bottles = 100;
+    coins = 0;
     percentage = 100;
     imageCache = {
 
@@ -24,7 +25,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Bottle || this instanceof Boss || this instanceof Coin || this instanceof Character) {
             ctx.beginPath();
             ctx.rect(this.positionX, this.positionY, this.width, this.height);
             ctx.stroke();

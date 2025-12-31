@@ -64,9 +64,15 @@ class MoveableObject extends DrawableObject {
         }
     }
 
+    collectCoin(i) {
+        world.level.coins.splice(i, 1);
+        world.statusbars.coinBar.coins += 10;
+        world.statusbars.coinBar.setPercentage(world.statusbars.coinBar.coins);
+    }
+
     throwedBottle() {
-            world.statusbars.bottleBar.bottles -= 20;
-            world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
+        world.statusbars.bottleBar.bottles -= 20;
+        world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
     }
 
     gotHurt() {
