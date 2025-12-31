@@ -30,21 +30,49 @@ class World {
     }
 
     checkCollisions() {
+        this.collisionCharacterWithEnemie();
+        this.characterCollectingCoin();
+        this.characterCollectingBottle();
+        this.bottleHitBoss();
+    }
+
+    collisionCharacterWithEnemie() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.gotHit();
+                this.character.gotHit('character');
             }
         });
+    }
+
+    characterCollectingCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.collectCoin(index);
             }
         });
+    }
+
+    characterCollectingBottle() {
         this.level.collectableBottles.forEach((collectableBottle, index) => {
-            console.log(this.statusbars.bottleBar.bottles);
-            
-            if (this.character.isColliding(collectableBottle) && this.statusbars.bottleBar.bottles<100) {
+            if (this.character.isColliding(collectableBottle) && this.statusbars.bottleBar.bottles < 100) {
                 this.character.collectBottle(index);
+            }
+        });
+    }
+
+    bottleHitBoss() {
+        this.bottles.forEach((bottle, index) => {
+            if (this.boss.isColliding(bottle)) {
+                this.bottles[index].hitted();
+                this.bottles[index].animation('break');
+                setTimeout(() => {
+                    this.bottles.splice(index, 1);
+                }, 300);
+                this.boss.gotHit('boss');
+            } else if (this.bottles[index].broke) {
+                setTimeout(() => {
+                    this.bottles.splice(index, 1);
+                }, 500);
             }
         });
     }
@@ -78,8 +106,8 @@ class World {
         this.addObjectsToMap(this.level.background);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.bottles);
         this.addObjectsToMap(this.level.collectableBottles);
+        this.addObjectsToMap(this.bottles);
     }
 
     setStatusBars() {

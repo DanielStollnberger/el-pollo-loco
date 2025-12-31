@@ -77,7 +77,7 @@ class Character extends MoveableObject {
                 this.animation('jumping');
             } else if (this.isDead()) {
                 this.animation('die');
-                console.log('die');
+                console.log('character died');
             } else if (this.gotHurt()) {
                 this.animation('hurt');
             }

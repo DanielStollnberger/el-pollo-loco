@@ -13,7 +13,7 @@ class MoveableObject extends DrawableObject {
 
     gravitation() {
         setInterval(() => {
-            if (this instanceof ThrowableObject) {
+            if (this instanceof ThrowableObject && this.aboveGround()) {
                 this.positionY -= this.speedY;
                 this.speedY -= this.acceleration;
             } else if (this.aboveGround() || this.speedY > 0) {
@@ -24,7 +24,11 @@ class MoveableObject extends DrawableObject {
     }
 
     aboveGround() {
-        return this.positionY < 180
+        if (this instanceof Character) {
+            return this.positionY < 180
+        } else {
+            return this.positionY < 380
+        }
     }
 
     animation(cacheArray) {
@@ -53,9 +57,14 @@ class MoveableObject extends DrawableObject {
             this.positionY < object.positionY + object.height
     }
 
-    gotHit() {
-        this.health -= 5;
-        world.statusbars.healthBar.setPercentage(this.health);
+    gotHit(ob) {
+        if (ob == 'character') {
+            world.character.health -= 5;
+            world.statusbars.healthBar.setPercentage(this.health);
+        } else if (ob == 'boss') {
+            world.boss.health -= 15;
+            console.log('hit');
+        }
 
         if (this.health < 0) {
             this.health = 0;
@@ -74,7 +83,7 @@ class MoveableObject extends DrawableObject {
         world.level.collectableBottles.splice(i, 1);
         if (world.statusbars.bottleBar.bottles < 100) {
             world.statusbars.bottleBar.bottles += 20;
-            
+
         }
         world.statusbars.bottleBar.setPercentage(world.statusbars.bottleBar.bottles);
     }
