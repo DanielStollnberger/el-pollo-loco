@@ -25,7 +25,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Bottle || this instanceof Boss || this instanceof CollectableBottle || this instanceof Character) {
+        if (this instanceof Bottle || this instanceof Boss || this instanceof Character) {
             ctx.beginPath();
             ctx.rect(this.positionX, this.positionY, this.width, this.height);
             ctx.stroke();

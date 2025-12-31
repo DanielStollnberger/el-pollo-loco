@@ -41,7 +41,9 @@ class World {
             }
         });
         this.level.collectableBottles.forEach((collectableBottle, index) => {
-            if (this.character.isColliding(collectableBottle)) {
+            console.log(this.statusbars.bottleBar.bottles);
+            
+            if (this.character.isColliding(collectableBottle) && this.statusbars.bottleBar.bottles<100) {
                 this.character.collectBottle(index);
             }
         });
