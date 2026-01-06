@@ -43,7 +43,11 @@ class Boss extends MoveableObject {
                 this.animation('hurt');
             } else if (this.isDead()) {
                 this.animation('die');
-                console.log('boss died');
+                setTimeout(() => {
+                    world.gamestate = 'won';
+                    world.showEndscreen('won A');
+                    world.sounds[2].play();
+                    }, 500);
             }
         }, 100);
     }

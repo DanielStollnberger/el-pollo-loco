@@ -4,6 +4,12 @@ class World {
     keyboard;
     cameraX = 0;
     level = level1;
+    gamestate = 'running';
+    sounds = [
+        new Audio('audio/collect.mp3'),
+        new Audio('audio/die.mp3'),
+        new Audio('audio/win.mp3'),
+    ]
 
     statusbars = {
         healthBar: new HealthBar(),
@@ -18,9 +24,9 @@ class World {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
-        this.draw();
-        this.checkWorld();
-        this.check();
+            this.draw();
+            this.checkWorld();
+            this.check();
     };
 
     checkWorld() {
@@ -34,6 +40,15 @@ class World {
         setInterval(() => {
             this.collisionCharacterWithEnemieFromAbove();
         }, 1000 / 60);
+    }
+
+    showEndscreen(state) {
+        this.img = new Image();
+        this.img.src = `img/You won, you lost/You ${state}.png`;
+
+        this.img.onload = () => {
+            this.ctx.drawImage(this.img, 180, 60, 360, 240);
+        };
     }
 
     checkCollisions() {
@@ -64,6 +79,7 @@ class World {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.collectCoin(index);
+                world.sounds[0].play();
             }
         });
     }
@@ -127,6 +143,9 @@ class World {
     }
 
     draw() {
+        if (this.gamestate !== 'running') {
+            return;
+        }
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
         this.setObjectsAndBackground();

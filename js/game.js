@@ -4,6 +4,14 @@ let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas,keyboard);
+    startscreen = new Startscreen(canvas);
+    setTimeout(() => {
+        loadWorld();
+    }, 1500);
+}
+
+
+function loadWorld() {
+    world = new World(canvas, keyboard);
 }
 

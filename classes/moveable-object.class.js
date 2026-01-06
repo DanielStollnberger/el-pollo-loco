@@ -26,19 +26,6 @@ class MoveableObject extends DrawableObject {
         }, 1000 / 25);
     }
     
-
-    // gravitation() {
-    //     setInterval(() => {
-    //         if (this instanceof ThrowableObject && this.aboveGround()) {
-    //             this.positionY -= this.speedY;
-    //             this.speedY -= this.acceleration;
-    //         } else if (this.aboveGround() || this.speedY > 0) {
-    //             this.positionY -= this.speedY;
-    //             this.speedY -= this.acceleration;
-    //         }
-    //     }, 1000 / 25)
-    // }
-
     aboveGround() {
         if (this instanceof Character) {
             return this.positionY < 180

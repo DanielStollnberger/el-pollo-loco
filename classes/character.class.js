@@ -77,7 +77,11 @@ class Character extends MoveableObject {
                 this.animation('jumping');
             } else if (this.isDead()) {
                 this.animation('die');
-                console.log('character died');
+                setTimeout(() => {
+                world.gamestate = 'lost';
+                world.showEndscreen('lost');
+                world.sounds[1].play();
+                }, 500);
             } else if (this.gotHurt()) {
                 this.animation('hurt');
             }
