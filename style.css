@@ -1,8 +1,51 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+/* Wrapper ist Referenz für absolute Positionierung */
+.canvas-wrapper {
+    position: relative;
+}
+
+/* Canvas bleibt wie gehabt */
+canvas {
+    background: black;
+    display: block;
+}
+
+/* Fullscreen Button */
+.fullscreen-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+
+    width: 48px;
+    height: 48px;
+    padding: 0;
+
+    border: none;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon im Button */
+.fullscreen-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Optional Hover-Effekt */
+.fullscreen-btn:hover {
+    background: rgba(0, 0, 0, 0.85);
+}
+
 
 canvas{
     background: black;

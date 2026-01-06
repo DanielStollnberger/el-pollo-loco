@@ -29,10 +29,14 @@
 
 <body onload="init()">
     <h1>EL POLLO LOCO</h1>
-    <canvas id="canvas" height="480" width="720"></canvas>
-    <div>
-        <button onclick="init()">Restart</button>
+    <div class="canvas-wrapper">
+        <canvas id="canvas" height="480" width="720"></canvas>
+    
+        <button class="fullscreen-btn" onclick="canvas.requestFullscreen()">
+            <img src="img/Download.jpeg">
+        </button>
     </div>
+    
 </body>
 
 </html>

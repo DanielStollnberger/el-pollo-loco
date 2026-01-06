@@ -3,6 +3,7 @@ class MoveableObject extends DrawableObject {
     lastHit = 0;
     speedY = 0;
     acceleration = 2.5;
+    lastY = 0;
 
     constructor(positionX, positionY, img) {
         super(positionX, positionY, img);
@@ -13,6 +14,8 @@ class MoveableObject extends DrawableObject {
 
     gravitation() {
         setInterval(() => {
+            this.lastY = this.positionY; // 👈 ENTSCHEIDEND
+    
             if (this instanceof ThrowableObject && this.aboveGround()) {
                 this.positionY -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -20,8 +23,21 @@ class MoveableObject extends DrawableObject {
                 this.positionY -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25)
+        }, 1000 / 25);
     }
+    
+
+    // gravitation() {
+    //     setInterval(() => {
+    //         if (this instanceof ThrowableObject && this.aboveGround()) {
+    //             this.positionY -= this.speedY;
+    //             this.speedY -= this.acceleration;
+    //         } else if (this.aboveGround() || this.speedY > 0) {
+    //             this.positionY -= this.speedY;
+    //             this.speedY -= this.acceleration;
+    //         }
+    //     }, 1000 / 25)
+    // }
 
     aboveGround() {
         if (this instanceof Character) {
@@ -56,6 +72,21 @@ class MoveableObject extends DrawableObject {
             this.positionX < object.positionX &&
             this.positionY < object.positionY + object.height
     }
+    isCollidingFromAbove(object) {
+        return (
+            // horizontale Überlappung
+            this.positionX + this.width > object.positionX &&
+            this.positionX < object.positionX + object.width &&
+    
+            // trifft von oben
+            this.positionY + this.height >= object.positionY &&
+            this.positionY + this.height <= object.positionY + object.height / 3 &&
+
+            this.speedY < 20
+        );
+    }
+    
+    
 
     gotHit(ob) {
         if (ob == 'character') {

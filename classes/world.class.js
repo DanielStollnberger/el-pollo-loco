@@ -20,6 +20,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.checkWorld();
+        this.check();
     };
 
     checkWorld() {
@@ -27,6 +28,12 @@ class World {
             this.checkCollisions();
             this.checkBottles();
         }, 200);
+    }
+
+    check() {
+        setInterval(() => {
+            this.collisionCharacterWithEnemieFromAbove();
+        }, 1000 / 60);
     }
 
     checkCollisions() {
@@ -41,6 +48,14 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.gotHit('character');
+            }
+        });
+    }
+
+    collisionCharacterWithEnemieFromAbove() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingFromAbove(enemy)) {
+                enemy.die();
             }
         });
     }
