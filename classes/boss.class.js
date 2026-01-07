@@ -44,11 +44,15 @@ class Boss extends MoveableObject {
             } else if (this.isDead()) {
                 this.animation('die');
                 setTimeout(() => {
-                    world.gamestate = 'won';
-                    world.showEndscreen('won A');
-                    world.sounds[2].play();
-                    }, 500);
+                    this.dyingScene();
+                }, 500);
             }
         }, 100);
+    }
+
+    dyingScene() {
+        world.gamestate = 'won';
+        world.showEndscreen('won A');
+        world.sounds[2].play();
     }
 }

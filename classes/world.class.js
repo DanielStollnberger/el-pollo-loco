@@ -24,9 +24,9 @@ class World {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.keyboard = keyboard;
-            this.draw();
-            this.checkWorld();
-            this.check();
+        this.draw();
+        this.checkWorld();
+        this.check();
     };
 
     checkWorld() {
@@ -111,25 +111,47 @@ class World {
 
     bottleHitChicken() {
         this.bottles.forEach((bottle, index) => {
-            let hit = false;
-            for (let i = 0; i < this.level.enemies.length; i++) {
-                if (this.level.enemies[i].isColliding(bottle)) {
-                    hit = true;
-                    this.level.enemies[i].die();
-                    break;
-                }
-            }
-
-            if (hit) {
-                this.bottles[index].hitted();
-                this.bottles[index].animation('break');
-
-                setTimeout(() => {
-                    this.bottles.splice(index, 1);
-                }, 300);
+            if (this.checkBottleHit(bottle)) {
+                this.handleBottleHit(bottle, index);
             }
         });
     }
+    checkBottleHit(bottle) {
+        for (let enemy of this.level.enemies) {
+            if (enemy.isColliding(bottle)) {
+                enemy.die();
+                return true;
+            }
+        }
+        return false;
+    }
+    handleBottleHit(bottle, index) {
+        bottle.hitted();
+        bottle.animation('break');
+        setTimeout(() => this.bottles.splice(index, 1), 300);
+    }
+
+    // bottleHitChicken() {
+    //     this.bottles.forEach((bottle, index) => {
+    //         let hit = false;
+    //         for (let i = 0; i < this.level.enemies.length; i++) {
+    //             if (this.level.enemies[i].isColliding(bottle)) {
+    //                 hit = true;
+    //                 this.level.enemies[i].die();
+    //                 break;
+    //             }
+    //         }
+
+    //         if (hit) {
+    //             this.bottles[index].hitted();
+    //             this.bottles[index].animation('break');
+
+    //             setTimeout(() => {
+    //                 this.bottles.splice(index, 1);
+    //             }, 300);
+    //         }
+    //     });
+    // }
 
 
 
@@ -143,23 +165,43 @@ class World {
     }
 
     draw() {
-        if (this.gamestate !== 'running') {
-            return;
-        }
+        if (this.gamestate !== 'running') return;
+        this.clearCanvas();
+        this.drawWorld();
+        requestAnimationFrame(() => this.draw());
+    }
+    clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.cameraX, 0);
-        this.setObjectsAndBackground();
-        this.ctx.translate(-this.cameraX, 0);
+    }
+    drawWorld() {
+        this.applyCamera(() => this.setObjectsAndBackground());
         this.setStatusBars();
+        this.applyCamera(() => this.setEnemiesAndCharacter());
+    }
+    applyCamera(drawFn) {
         this.ctx.translate(this.cameraX, 0);
-        this.setEnemiesAndCharacter();
+        drawFn();
         this.ctx.translate(-this.cameraX, 0);
+    }
 
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
-    };
+    // draw() {
+    //     if (this.gamestate !== 'running') {
+    //         return;
+    //     }
+    //     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    //     this.ctx.translate(this.cameraX, 0);
+    //     this.setObjectsAndBackground();
+    //     this.ctx.translate(-this.cameraX, 0);
+    //     this.setStatusBars();
+    //     this.ctx.translate(this.cameraX, 0);
+    //     this.setEnemiesAndCharacter();
+    //     this.ctx.translate(-this.cameraX, 0);
+
+    //     let self = this;
+    //     requestAnimationFrame(function () {
+    //         self.draw();
+    //     });
+    // };
 
     setObjectsAndBackground() {
         this.addObjectsToMap(this.level.background);
